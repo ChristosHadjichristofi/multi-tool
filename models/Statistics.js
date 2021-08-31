@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'Statistics',
-    schema: 'url-shortener-schema',
+    schema: 'multi-tool-schema',
     timestamps: true,
     indexes: [
       {

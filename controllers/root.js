@@ -4,37 +4,20 @@ var initModels = require("../models/init-models");
 var models = initModels(sequelize);
 // end of require models
 
-const getStatistics = require('../utils/getStatistics');
-
 const calcDays = require('../utils/calcDays');
 const DAYS_LINK_LIVE = 5;
 
 exports.getLanding = (req, res, next) => {
 
-    getStatistics()
-    .then(stats => {
-        if (stats == null) {
-            errorObject = { 
-                message: "Something went wrong, please try again later!", 
-                existsAt: { shortener: true, pwGen: false, expiration: false } 
-            };
-        }
-        else {
-            errorObject = { 
-                message: "All good", 
-                existsAt: { pwGen: false, shortener: false, expiration: false } 
-            };
-        }
-
-        return res.render('index.ejs', { 
-            constructedPassword: null,
-            shortURL: null,
-            stats: stats,
-            errorObject: errorObject,
-            chosen: "shortener" 
-        });
+    res.render('index.ejs', { 
+        constructedPassword: null,
+        shortURL: null,
+        errorObject: { 
+            message: "All good", 
+            existsAt: { shortener: false, pwGen: false, expiration: false } 
+        },
+        chosen: "shortener" 
     })
-
 }
 
 exports.getLongURL = (req, res, next) => {
