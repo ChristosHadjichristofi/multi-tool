@@ -1,0 +1,70 @@
+<div class="tab-pane <% if (constructedPassword != null || chosen == 'pwGen') { %> active <% } %>" id="pw-gen" role="tabpanel" aria-labelledby="pw-gen">
+    <section>
+        <h4>Generate Password</h4>
+        <form method="POST" action="/api/passwordGenerator">
+            <div class="input-group" id="input-text">
+                <input class="form-control" id="passwordOutput" name="passwordOutput" type="text" readonly placeholder="Your password will be shown here!" value="<% if (constructedPassword != null) { %> <%= constructedPassword %> <% } %>">
+                <button class="btn btn-primary" id="create-button" style="margin-right: 5px;" type="submit">Create</button>
+                <button class="btn btn-primary" id="copy-button-pwGen" onclick="copyToClipboard('passwordOutput')" type="button">Copy&nbsp;<i class="fa fa-copy"></i></button>
+            </div>
+
+            <% if (errorObject.existsAt.pwGen) { %> 
+                <input class="alert alert-danger" role="alert" id="errorOutput" name="errorOutput" type="text" readonly value="<%= errorObject.message %>" style="width: 100%;">
+            <% } %>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Default Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="number" id="length" name="length" value="10"> length</td>
+                        <td>Integer, length of password.</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td><input class="big-checkbox" type="checkbox" id="numbers" name="numbers"> numbers*</td>
+                        <td>Boolean, put numbers in password.</td>
+                        <td>false</td>
+                    </tr>
+                    <tr>
+                        <td><input class="big-checkbox" type="checkbox" id="symbols" name="symbols"> symbols*</td>
+                        <td>Boolean or String, put symbols in password.</td>
+                        <td>false</td>
+                    </tr>
+                    <tr>
+                        <td><input class="big-checkbox" type="checkbox" checked id="lowercase" name="lowercase"> lowercase*</td>
+                        <td>Boolean, put lowercase in password</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td><input class="big-checkbox" type="checkbox" checked id="uppercase" name="uppercase"> uppercase*</td>
+                        <td>Boolean, use uppercase letters in password.</td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td><input class="big-checkbox" type="checkbox" id="excludeSimilarCharacters" name="excludeSimilarCharacters"> excludeSimilarCharacters*</td>
+                        <td>Boolean, exclude similar chars, like 'i' and 'l'.</td>
+                        <td>false</td>
+                    </tr>
+                    <tr>
+                        <td><input type="string" id="exclude" name="exclude" vale=""> exclude*</td>
+                        <td>String, characters to be excluded from password.</td>
+                        <td>''</td>
+                    </tr>
+                    <tr>
+                        <td><input class="big-checkbox" type="checkbox" id="strict" name="strict"> strict*</td>
+                        <td>Boolean, password must include at least one character from each pool.</td>
+                        <td>false</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>*At least one should be true.</p>
+            <p>**App uses the <a href="https://www.npmjs.com/package/generate-password">generate-password package from npm.</a></p>
+        </form>
+    </section>
+</div>

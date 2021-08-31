@@ -1,0 +1,40 @@
+
+#button-id {
+  width: 120px;
+}
+
+#create-button {
+  width: 85px;
+}
+
+#copy-button-url-shortener {
+  width: 120px;
+}
+
+#copy-button-pwGen {
+  width: 85px;
+}
+
+#input-text {
+  margin-bottom: 25px;
+}
+
+#header-item {
+  margin-bottom: 20px;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+#analytics-field {
+  max-width: 350px;
+  text-align: center;
+}
+
+.big-checkbox {
+  width: 15px; 
+  height: 15px;
+}

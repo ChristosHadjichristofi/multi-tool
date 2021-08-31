@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>MultiTool ⚙</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/Footer-Clean.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+    <header id="header-item">
+        <h1 class="text-center">MultiTool Library</h1>
+    </header>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <%- include("includes/nav.ejs")%>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <%- include("includes/url-shortener.ejs")%>
+                    <!-- <%- include("includes/pwGen.ejs")%> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include("includes/footer.ejs")%>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/change-tab.js"></script>
+    <script src="/assets/bootstrap/js/copy-to-clipboard.js"></script>
+
+</body>
+
+</html>
