@@ -1,4 +1,4 @@
-<div class="tab-pane <% if (constructedPassword != null || chosen == 'pwGen') { %> active <% } %>" id="pw-gen" role="tabpanel" aria-labelledby="pw-gen">
+<div class="tab-pane <% if (chosen == 'pwGen') { %> active <% } %>" id="pw-gen" role="tabpanel" aria-labelledby="pw-gen">
     <section>
         <h4>Generate Password</h4>
         <form method="POST" action="/api/passwordGenerator">

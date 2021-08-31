@@ -3,7 +3,7 @@ const sequelize = require('../utils/database');
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
 // end of require models
-
+const generateMessageObj = require('../utils/generateMessageObj');
 const calcDays = require('../utils/calcDays');
 const DAYS_LINK_LIVE = 5;
 
@@ -19,25 +19,19 @@ exports.postShortURL = (req, res, next) => {
 
     if (longURL == "") {
         errorOccured = true;
-        errorObject = { 
-            message: "Input cannot be empty!", 
-            existsAt: { shortener: true, pwGen: false, expiration: false } 
-        };
+        errorObject = generateMessageObj.errorAt("shortener", "Input cannot be empty!");
     }
 
     if (!validUrl.isUri(baseURL)) {
         errorOccured = true;
-        errorObject = { 
-            message: "Invalid Base URL!", 
-            existsAt: { shortener: true, pwGen: false, expiration: false } 
-        };
-
+        errorObject = generateMessageObj.errorAt("shortener", "Invalid Base URL!");
     }
     
     if (errorOccured) {
         return res.render('index.ejs', {
             constructedPassword: null,
             shortURL: null,
+            qrImg: null,
             errorObject: errorObject,
             chosen: "shortener"
         })
@@ -52,10 +46,8 @@ exports.postShortURL = (req, res, next) => {
                 return res.render('index.ejs', {
                     constructedPassword: null,
                     shortURL: record.shortURL,
-                    errorObject: { 
-                        message: "All good", 
-                        existsAt: { shortener: false, pwGen: false, expiration: false } 
-                    },
+                    qrImg: null,
+                    errorObject: generateMessageObj.noError(),
                     chosen: "shortener"
                 })
             }
@@ -72,10 +64,8 @@ exports.postShortURL = (req, res, next) => {
                     return res.render('index.ejs', {
                         constructedPassword: null,
                         shortURL: shortURL,
-                        errorObject: { 
-                            message: "All good", 
-                            existsAt: { shortener: false, pwGen: false, expiration: false } 
-                        },
+                        qrImg: null,
+                        errorObject: generateMessageObj.noError(),
                         chosen: "shortener"
                     })
                 })
@@ -83,10 +73,8 @@ exports.postShortURL = (req, res, next) => {
                     return res.render('index.ejs', {
                         constructedPassword: null,
                         shortURL: null,
-                        errorObject: { 
-                            message: "Something went wrong, please try again later!", 
-                            existsAt: { shortener: true, pwGen: false, expiration: false } 
-                        },
+                        qrImg: null,
+                        errorObject: generateMessageObj.errorAt("shortener", "Something went wrong, please try again later!"),
                         chosen: "shortener"
                     })
                 })
@@ -96,10 +84,8 @@ exports.postShortURL = (req, res, next) => {
             return res.render('index.ejs', {
                 constructedPassword: null,
                 shortURL: null,
-                errorObject: { 
-                    message: "Something went wrong, please try again later!", 
-                    existsAt: { shortener: true, pwGen: false, expiration: false } 
-                },
+                qrImg: null,
+                errorObject: generateMessageObj.errorAt("shortener", "Something went wrong, please try again later!"),
                 chosen: "shortener"
             })
         })
@@ -108,10 +94,8 @@ exports.postShortURL = (req, res, next) => {
         return res.render('index.ejs', {
             constructedPassword: null,
             shortURL: null,
-            errorObject: { 
-                message: "The Link you are providing, is not of the right form. Please make sure to copy and paste!", 
-                existsAt: { shortener: true, pwGen: false, expiration: false } 
-            },
+            qrImg: null,
+            errorObject: generateMessageObj.errorAt("shortener", "The Link you are providing, is not of the right form. Please make sure to copy and paste!"),
             chosen: "shortener"
         })
     }
@@ -131,10 +115,8 @@ exports.getExpiration = (req, res, next) => {
             return res.render('index.ejs', {
                 constructedPassword: null,
                 shortURL: null,
-                errorObject: { 
-                    message: "Expired!", 
-                    existsAt: { shortener: false, pwGen: false, expiration: true } 
-                },
+                qrImg: null,
+                errorObject: generateMessageObj.errorAt("expiration", "Expired!"),
                 chosen: "shortener"
             })
         }
@@ -148,10 +130,8 @@ exports.getExpiration = (req, res, next) => {
                 return res.render('index.ejs', {
                     constructedPassword: null,
                     shortURL: null,
-                    errorObject: { 
-                        message: "Expired!", 
-                        existsAt: { shortener: false, pwGen: false, expiration: true } 
-                    },
+                    qrImg: null,
+                    errorObject: generateMessageObj.errorAt("expiration", "Expired!"),
                     chosen: "shortener"
                 })
             })
@@ -159,10 +139,8 @@ exports.getExpiration = (req, res, next) => {
                 return res.render('index.ejs', {
                     constructedPassword: null,
                     shortURL: null,
-                    errorObject: { 
-                        message: "Something went wrong, please try again later!", 
-                        existsAt: { shortener: true, pwGen: false, expiration: false } 
-                    },
+                    qrImg: null,
+                    errorObject: generateMessageObj.errorAt("shortener", "Something went wrong, please try again later!"),
                     chosen: "shortener"
                 })
             })
@@ -172,10 +150,8 @@ exports.getExpiration = (req, res, next) => {
             return res.render('index.ejs', {
                 constructedPassword: null,
                 shortURL: null,
-                errorObject: { 
-                    message: "Valid!", 
-                    existsAt: { shortener: false, pwGen: false, expiration: true } 
-                },
+                qrImg: null,
+                errorObject: generateMessageObj.errorAt("expiration", "Valid!"),
                 chosen: "shortener"
             })
         }
@@ -184,10 +160,8 @@ exports.getExpiration = (req, res, next) => {
         return res.render('index.ejs', {
             constructedPassword: null,
             shortURL: null,
-            errorObject: { 
-                message: "Something went wrong, please try again later!", 
-                existsAt: { shortener: true, pwGen: false, expiration: false } 
-            },
+            qrImg: null,
+            errorObject: generateMessageObj.errorAt("shortener", "Something went wrong, please try again later!"),
             chosen: "shortener"
         })
     })

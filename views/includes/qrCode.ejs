@@ -1,0 +1,21 @@
+<div class="tab-pane <% if (chosen == 'qrCode') { %> active <% } %>" id="qr-code" role="tabpanel">
+    <section>
+        <h4>Enter URL to create QR Code</h4>
+        <form method="POST" action="/api/qr">
+            <div class="input-group" id="input-text">
+                <input class="form-control" type="text" id="urlForQR" name="urlForQR" placeholder="Enter URL to create the QR!">
+                <button class="btn btn-primary" id="button-id" type="submit">Create 🚀</button>
+            </div>
+        </form>
+        
+        <% if (errorObject.existsAt.qrCode) { %> 
+            <input class="alert alert-danger" role="alert" id="errorOutput" name="errorOutput" type="text" readonly value="<%= errorObject.message %>" style="width: 100%;">
+        <% } %>
+            <h6><%= errorObject.qrCode %></h6>
+        <% if (chosen == 'qrCode' && !errorObject.existsAt.qrCode) { %>
+            <div style="text-align: center;">
+                <img src="<%= qrImg %>" alt="QR Code Image">
+            </div>
+        <% } %>
+    </section>
+</div>

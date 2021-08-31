@@ -4,6 +4,7 @@ var initModels = require("../models/init-models");
 var models = initModels(sequelize);
 // end of require models
 
+const generateMessageObj = require('../utils/generateMessageObj');
 const calcDays = require('../utils/calcDays');
 const DAYS_LINK_LIVE = 5;
 
@@ -12,10 +13,8 @@ exports.getLanding = (req, res, next) => {
     res.render('index.ejs', { 
         constructedPassword: null,
         shortURL: null,
-        errorObject: { 
-            message: "All good", 
-            existsAt: { shortener: false, pwGen: false, expiration: false } 
-        },
+        qrImg: null,
+        errorObject: generateMessageObj.noError(),
         chosen: "shortener" 
     })
 }
@@ -35,10 +34,8 @@ exports.getLongURL = (req, res, next) => {
                     return res.render('index.ejs', {
                         constructedPassword: null,
                         shortURL: null,
-                        errorObject: { 
-                            message: "This Short URL has expired!", 
-                            existsAt: { shortener: true, pwGen: false, expiration: false } 
-                        },
+                        qrImg: null,
+                        errorObject: generateMessageObj.errorAt("shortener", "This Short URL has expired!"),
                         chosen: "shortener"
                     })
                 })
@@ -46,10 +43,8 @@ exports.getLongURL = (req, res, next) => {
                     return res.render('index.ejs', {
                         constructedPassword: null,
                         shortURL: null,
-                        errorObject: { 
-                            message: "Something went wrong, please try again later!", 
-                            existsAt: { shortener: true, pwGen: false, expiration: false } 
-                        },
+                        qrImg: null,
+                        errorObject: generateMessageObj.errorAt("shortener", "Something went wrong, please try again later!"),
                         chosen: "shortener"
                     })
                 })
@@ -61,10 +56,8 @@ exports.getLongURL = (req, res, next) => {
             return res.render('index.ejs', {
                 constructedPassword: null,
                 shortURL: null,
-                errorObject: { 
-                    message: "This Short URL does not exist!", 
-                    existsAt: { shortener: true, pwGen: false, expiration: false } 
-                },
+                qrImg: null,
+                errorObject: generateMessageObj.errorAt("shortener", "This Short URL does not exist!"),
                 chosen: "shortener"
             })
         }
@@ -73,10 +66,8 @@ exports.getLongURL = (req, res, next) => {
         return res.render('index.ejs', {
             constructedPassword: null,
             shortURL: null,
-            errorObject: { 
-                message: "Something went wrong, please try again later!", 
-                existsAt: { shortener: true, pwGen: false, expiration: false } 
-            },
+            qrImg: null,
+            errorObject: generateMessageObj.errorAt("shortener", "Something went wrong, please try again later!"),
             chosen: "shortener"
         })
     })

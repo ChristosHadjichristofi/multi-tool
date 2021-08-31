@@ -4,9 +4,11 @@ var initModels = require("../models/init-models");
 var models = initModels(sequelize);
 // end of require models
 
+const generateMessageObj = require('../utils/generateMessageObj');
 const generator = require('generate-password');
 
 exports.postGeneratePassword = (req, res, next) => {
+    let errorObject = {};
     let atLeastOnePicked = false;
     let length = req.body.length;
     let numbers = req.body.numbers;
@@ -29,8 +31,8 @@ exports.postGeneratePassword = (req, res, next) => {
     let constructedPassword;
 
     if (atLeastOnePicked) {
-        errorObject = { message: "All good", existsAt: { pwGen: false, shortener: false, expiration: false } };
-    
+        errorObject = generateMessageObj.noError();
+
         constructedPassword = generator.generate({
             length: length,
             numbers: numbers,
@@ -42,11 +44,12 @@ exports.postGeneratePassword = (req, res, next) => {
             strict: strict
         });
     }
-    else errorObject = { message: "You should pick at least one option!", existsAt: { pwGen: true, shortener: false, expiration: false } };
-
+    else errorObject = generateMessageObj.errorAt("pwGen", "You should pick at least one option!");
+    
     res.render('index.ejs', {
         constructedPassword: constructedPassword,
         shortURL: null,
+        qrImg: null,
         errorObject: errorObject,
         chosen: "pwGen"
     })

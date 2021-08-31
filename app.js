@@ -1,11 +1,11 @@
 const express = require('express');
 const path = require('path');
-const sequelize = require('./utils/database');
 
 // Routes
 const root = require('./routes/root');
 const shortener = require('./routes/shortener');
 const pwGen = require('./routes/pwGen');
+const qrCode = require('./routes/qrCode');
 
 const app = express();
 
@@ -18,6 +18,7 @@ app.set('views', 'views');
 
 app.use('/', root);
 app.use('/api/url', shortener);
+app.use('/api/qr', qrCode);
 app.use('/api/passwordGenerator', pwGen);
 
 // In case of an endpoint does not exist must return 404.html

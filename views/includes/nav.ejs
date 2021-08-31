@@ -1,10 +1,14 @@
 <ul class="nav nav-tabs card-header-tabs" id="multitool-nav" role="tablist">
     <li class="nav-item">
-        <a class="nav-link <% if (constructedPassword == null && chosen == 'shortener') { %> active <% } %>" 
+        <a class="nav-link <% if (chosen == 'shortener') { %> active <% } %>" 
             href="#url-shortener" role="tab" aria-controls="url-shortener" aria-selected="true">URL Shortener</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link <% if (constructedPassword != null || chosen == 'pwGen') { %> active <% } %>" 
+        <a class="nav-link <% if (chosen == 'pwGen') { %> active <% } %>" 
             href="#pw-gen" role="tab" aria-controls="pw-gen" aria-selected="false">Password Generator</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <% if (chosen == 'qrCode') { %> active <% } %>" 
+            href="#qr-code" role="tab" aria-controls="qr-code" aria-selected="false">QR Code</a>
     </li>
 </ul>

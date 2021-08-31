@@ -1,4 +1,4 @@
-<div class="tab-pane <% if (constructedPassword == null && chosen == 'shortener') { %> active <% } %>" id="url-shortener" role="tabpanel">
+<div class="tab-pane <% if (chosen == 'shortener') { %> active <% } %>" id="url-shortener" role="tabpanel">
     <section>
         <h4>Enter URL to be shortened</h4>
         <form method="POST" action="/api/url/shorten">
